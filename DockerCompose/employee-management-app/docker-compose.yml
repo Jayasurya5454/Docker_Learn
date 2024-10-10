@@ -1,0 +1,34 @@
+version: "3"
+services:
+  employee-management-frontend:
+    image: jayasurya5454/employee-management-frontend:latest
+    ports:
+      - "80:3000"
+    depends_on:
+      - employee-management-backend
+    networks:
+      - employee-network
+
+  employee-management-backend:
+    image: jayasurya5454/employee-management-backend:latest
+    ports:
+      - "5000:5000"
+    depends_on:
+      - employee-db
+    networks:
+      - employee-network
+
+  employee-db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - employee-db:/data/db
+    networks:
+      - employee-network
+
+volumes:
+  employee-db:
+
+networks:
+  employee-network:
